@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>產品帽型圖庫 - GU. SHENG 盛全工業</title>
+    <style>
+        :root {
+            --bg-color: #F9F6F0;      /* 日系經典米白 */
+            --text-main: #2C2C2C;     /* 深炭灰 */
+            --text-sub: #6E6E6E;      /* 說明灰 */
+            --accent: #8C7E6C;        /* 職人大地色 */
+            --border: #E5DEC9;        /* 柔和米黃邊框 */
+        }
+        html {
+            scrollbar-gutter: stable; /* 統一保留右側捲軸寬度，避免切換頁面時版面左右微移 */
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+        }
+        /* 頂部選單欄：三欄對稱結構，上緣完全齊平（與首頁一致） */
+        header {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 25px 20px 20px;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: start;
+            border-bottom: 1px solid var(--border);
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            line-height: 1.2;
+        }
+        .logo span {
+            font-size: 11px;
+            color: var(--text-sub);
+            display: block;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+        .header-center-logo {
+            text-align: center;
+            padding: 0 15px;
+        }
+        .header-center-logo img {
+            height: 176px; /* 已再放大 50% (117px * 1.5 = 175.5 ≈ 176px) */
+            width: 176px; /* 明確預留寬度，圖片載入前版面就固定，不抖動 */
+            display: block;
+            margin: 0 auto;
+            transition: transform 0.3s ease;
+        }
+        .header-center-logo img:hover {
+            transform: translateY(-2px);
+        }
+        .header-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            line-height: 1.2;
+        }
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 22px;
+            font-size: 13px;
+            letter-spacing: 1.5px;
+        }
+        nav a:hover, nav a.active {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .lang-switch {
+            display: flex;
+            gap: 5px;
+            margin-top: 15px;
+            justify-content: flex-end;
+        }
+        .lang-btn {
+            background: none;
+            border: 1px solid var(--border);
+            padding: 2px 8px;
+            font-size: 11px;
+            cursor: pointer;
+            color: var(--text-sub);
+        }
+        .lang-btn.active {
+            border-color: var(--accent);
+            color: var(--text-main);
+            background: #FFF;
+            font-weight: bold;
+        }
+        /* 手機版排版調適（與首頁一致） */
+        @media (max-width: 768px) {
+            header {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                text-align: center;
+                align-items: center;
+            }
+            .header-center-logo {
+                order: -1;
+            }
+            .header-center-logo img {
+                height: 143px;
+                width: 143px; /* 明確預留寬度，避免抖動 */
+            }
+            .header-right {
+                align-items: center;
+            }
+            nav a {
+                margin: 0 10px;
+            }
+            .lang-switch {
+                justify-content: center;
+            }
+        }
+
+        .section-header {
+            text-align: center;
+            margin: 60px 0 40px;
+            padding: 0 20px;
+        }
+        .section-header h1 {
+            font-size: 24px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+        .section-header p {
+            font-size: 13.5px;
+            color: var(--text-sub);
+        }
+
+        /* 網格排列：純展示，不需按鈕切換 */
+        .products {
+            max-width: 1200px;
+            margin: 0 auto 100px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 40px;
+        }
+        .product-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .product-image {
+            width: 100%;
+            height: 260px;
+            object-fit: contain;
+            background-color: var(--bg-color);
+            margin-bottom: 18px;
+            border: 1px solid var(--border);
+        }
+        .category-tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .tag-style, .tag-season {
+            font-size: 11px;
+            padding: 2px 10px;
+            border-radius: 3px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .tag-style {
+            background-color: var(--accent);
+            color: #FFFFFF;
+        }
+        .tag-season {
+            border: 1px solid var(--border);
+            color: var(--text-sub);
+        }
+
+        .product-card h3 {
+            font-size: 17px;
+            font-weight: 500;
+            margin: 5px 0 10px;
+            letter-spacing: 1px;
+        }
+
+        /* 帽型講解專屬區塊 */
+        .style-highlight {
+            background: #FAF8F5;
+            border-left: 3px solid var(--accent);
+            padding: 8px 12px;
+            font-size: 12.5px;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .product-card p {
+            font-size: 13px;
+            color: var(--text-sub);
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .specs-list {
+            font-size: 12px;
+            color: var(--text-sub);
+            border-top: 1px dashed var(--border);
+            padding-top: 12px;
+            margin-bottom: 18px;
+        }
+        .specs-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        .specs-label {
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .cta-btn {
+            display: block;
+            text-align: center;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 8px;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+        .cta-btn:hover {
+            background-color: var(--accent);
+            color: #FFF;
+        }
+
+        footer {
+            background-color: #FFFFFF;
+            border-top: 1px solid var(--border);
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-sub);
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px 14px;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-decoration: none;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            background-color: var(--bg-color);
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        .social-btn:hover {
+            border-color: var(--accent);
+            color: #FFF;
+            background-color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            GU. SHENG
+            <span id="company-sub" data-i18n="sub">盛全工業股份有限公司</span>
+        </div>
+        <div class="header-center-logo">
+            <img src="logo.png" alt="GU. SHENG">
+        </div>
+        <div class="header-right">
+            <nav>
+                <a href="index.html" data-i18n="navHome">首頁</a>
+                <a href="products.html" class="active" data-i18n="navProducts">產品型錄</a>
+                <a href="contact.html" data-i18n="navContact">聯絡我們</a>
+            </nav>
+            <div class="lang-switch">
+                <button class="lang-btn active" onclick="switchLang('zh', this)">繁中</button>
+                <button class="lang-btn" onclick="switchLang('en', this)">EN</button>
+                <button class="lang-btn" onclick="switchLang('jp', this)">JP</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="section-header">
+        <h1 id="page-title" data-i18n="pageTitle">帽型圖庫</h1>
+        <p id="page-subtitle" data-i18n="pageSub">涵蓋 39 款產品資產之核心帽型講解，支援 14 個工作天自主打樣開發</p>
+    </div>
+
+    <!-- 垂直直接展開所有款式 -->
+    <section class="products">
+        <!-- 1. 紳士帽 -->
+        <div class="product-card">
+            <div>
+                <img class="product-image" src="fedora.png" alt="Fedora" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div style="display:none; height:260px; background:#F9F6F0; align-items:center; justify-content:center; color:#6E6E6E; margin-bottom:18px; border:1px dashed #E5DEC9;">【fedora.png】</div>
+                <div class="category-tags">
+                    <span class="tag-style" data-i18n="c1Tag">紳士帽</span>
+                    <span class="tag-season" data-i18n="c1Season">春夏線</span>
+                </div>
+                <h3 data-i18n="c1Name">精品定型紳士帽</h3>
+                <!-- 帽型解說 -->
+                <div class="style-highlight">
+                    <strong data-i18n="featLabel">【帽型特點】</strong> <span data-i18n="c1Feat">水滴型凹折帽冠與微上翹帽簷，賦予正裝與高端休閒兼具的立體輪廓。</span>
+                </div>
+                <p data-i18n="c1Desc">精選天然亞麻於台灣打造。得益於先進熱定型技術，維持立體挺拔廓形，確保透氣與遮陽效果，具備優異形狀記憶力。</p>
+                <div class="specs-list">
+                    <div class="specs-row"><span class="specs-label" data-i18n="labMat">材質組成</span><span data-i18n="c1V1">天然亞麻 / 麻混紡</span></div>
+                    <div class="specs-row"><span class="specs-label" data-i18n="labCraft">工藝特色</span><span data-i18n="c1V2">熱定型形狀記憶 / 一體成型針織</span></div>
+                    <div class="specs-row"><span class="specs-label" data-i18n="labSample">打樣時程</span><span data-i18n="c1V3">14 個工作天</span></div>
+                </div>
+            </div>
+            <a href="contact.html?intent=LineSheet&style=Fedora" class="cta-btn" data-i18n="c1Cta">索取此款型錄</a>
+        </div>
+
+        <!-- 2. 報童帽 -->
+        <div class="product-card">
+            <div>
+                <img class="product-image" src="casquette.png" alt="Casquette" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div style="display:none; height:260px; background:#F9F6F0; align-items:center; justify-content:center; color:#6E6E6E; margin-bottom:18px; border:1px dashed #E5DEC9;">【casquette.png】</div>
+                <div class="category-tags">
+                    <span class="tag-style" data-i18n="c2Tag">報童帽</span>
+                    <span class="tag-season" data-i18n="c2Season">四季款</span>
+                </div>
+                <h3 data-i18n="c2Name">精品定型報童帽</h3>
+                <!-- 帽型解說 -->
+                <div class="style-highlight">
+                    <strong data-i18n="featLabel">【帽型特點】</strong> <span data-i18n="c2Feat">微澎圓弧的八角／圓形帽頂配搭硬質小短簷，修飾臉型並自帶復古英倫文藝感。</span>
+                </div>
+                <p data-i18n="c2Desc">優雅與復古時尚兼具，頂級精梳棉編織而成。招牌熱定型加工維持微澎立體弧度與抗擠壓彈性，帶來親膚舒適體驗。</p>
+                <div class="specs-list">
+                    <div class="specs-row"><span class="specs-label" data-i18n="labMat">材質組成</span><span data-i18n="c2V1">頂級精梳棉</span></div>
+                    <div class="specs-row"><span class="specs-label" data-i18n="labCraft">工藝特色</span><span data-i18n="c2V2">微澎立體結構 / 抗擠壓</span></div>
+                    <div class="specs-row"><span class="specs-label" data-i18n="labSample">打樣時程</span><span data-i18n="c2V3">14 個工作天</span></div>
+                </div>
+            </div>
+            <a href="contact.html?intent=LineSheet&style=Casquette" class="cta-btn" data-i18n="c2Cta">索取此款型錄</a>
+        </div>
+
+        <!-- 3. 貝雷帽 -->
+        <div class="product-card">
+            <div>
+                <img class="product-image" src="beret.png" alt="Beret" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div style="display:none; height:260px; background:#F9F6F0; align-items:center; justify-content:center; color:#6E6E6E; margin-bottom:18px; border:1px dashed #E5DEC9;">【beret.png】</div>
+                <div class="category-tags">
+                    <span class="tag-style" data-i18n="c3Tag">貝雷帽</span>
+                    <span class="tag-season" data-i18n="c3Season">秋冬線</span>
+                </div>
+                <h3 data-i18n="c3Name">高級羊毛縮絨貝雷帽（仿皮縫邊款）</h3>
+                <!-- 帽型解說 -->
+                <div class="style-highlight">
+                    <strong data-i18n="featLabel">【帽型特點】</strong> <span data-i18n="c3Feat">無簷平頂圓型剪裁，可自由抓整傾斜角度；邊緣仿皮滾邊大幅強化挺拔度與耐磨性。</span>
+                </div>
+                <p data-i18n="c3Desc">精選澳洲羊毛縮絨一體成型，俐落仿皮滾邊搭配手工縫合細節。具備保暖與透氣度，契合軍警、旅宿等制服配件標準。</p>
+                <div class="specs-list">
+                    <div class="specs-row"><span class="specs-label" data-i18n="labMat">材質組成</span><span data-i18n="c3V1">頂級澳洲羊毛＋仿皮邊</span></div>
+                    <div class="specs-row"><span class="specs-label" data-i18n="labCraft">工藝特色</span><span data-i18n="c3V2">高密度縮絨 / 異材質手工車縫</span></div>
+                    <div class="specs-row"><span class="specs-label" data-i18n="labSample">打樣時程</span><span data-i18n="c3V3">14 個工作天</span></div>
+                </div>
+            </div>
+            <a href="contact.html?intent=LineSheet&style=Beret" class="cta-btn" data-i18n="c3Cta">索取此款型錄</a>
+        </div>
+
+        <!-- 4. 仕女定型帽 -->
+        <div class="product-card">
+            <div>
+                <img class="product-image" src="womenshat.png" alt="Women's Hat" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div style="display:none; height:260px; background:#F9F6F0; align-items:center; justify-content:center; color:#6E6E6E; margin-bottom:18px; border:1px dashed #E5DEC9;">【womenshat.png】</div>
+                <div class="category-tags">
+                    <span class="tag-style" data-i18n="c4Tag">仕女成型帽</span>
+                    <span class="tag-season" data-i18n="c4Season">春夏線</span>
+                </div>
+                <h3 data-i18n="c4Name">優雅仕女定型帽</h3>
+                <!-- 帽型解說 -->
+                <div class="style-highlight">
+                    <strong data-i18n="featLabel">【帽型特點】</strong> <span data-i18n="c4Feat">專為女性優雅身形打版，微鐘型或波浪微下垂簷邊，兼顧遮陽效果與高雅氣質。</span>
+                </div>
+                <p data-i18n="c4Desc">專為女性優雅氣質打造的定型成型帽款。採用細緻麻棉混紡或紙編紗線，兼具俐落流暢的帽簷線條與遮陽效果，配戴輕盈且不易塌陷。</p>
+                <div class="specs-list">
+                    <div class="specs-row"><span class="specs-label" data-i18n="labMat">材質組成</span><span data-i18n="c4V1">天然麻棉混紡 / 紙編特種紗</span></div>
+                    <div class="specs-row"><span class="specs-label" data-i18n="labCraft">工藝特色</span><span data-i18n="c4V2">立體熱定型弧度 / 輕盈透氣防曬</span></div>
+                    <div class="specs-row"><span class="specs-label" data-i18n="labSample">打樣時程</span><span data-i18n="c4V3">14 個工作天</span></div>
+                </div>
+            </div>
+            <a href="contact.html?intent=LineSheet&style=WomensHat" class="cta-btn" data-i18n="c4Cta">索取此款型錄</a>
+        </div>
+
+        <!-- 5. 針織定型球帽 -->
+        <div class="product-card">
+            <div>
+                <img class="product-image" src="cap.png" alt="Cap" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div style="display:none; height:260px; background:#F9F6F0; align-items:center; justify-content:center; color:#6E6E6E; margin-bottom:18px; border:1px dashed #E5DEC9;">【cap.png】</div>
+                <div class="category-tags">
+                    <span class="tag-style" data-i18n="c5Tag">針織定型球帽</span>
+                    <span class="tag-season" data-i18n="c5Season">四季款</span>
+                </div>
+                <h3 data-i18n="c5Name">潮流針織定型棒球帽</h3>
+                <!-- 帽型解說 -->
+                <div class="style-highlight">
+                    <strong data-i18n="featLabel">【帽型特點】</strong> <span data-i18n="c5Feat">結合圓弧弧形硬簷與一體成型圓頂，告別傳統裁片接縫，包覆性佳且透氣度極高。</span>
+                </div>
+                <p data-i18n="c5Desc">結合一體成型針織帽體與定型弧度帽簷技術。打破傳統裁片成衣感，具備高透氣性、抗壓不變形與服貼頭型的立體輪廓，支援高爾夫與高街潮流配件品牌。</p>
+                <div class="specs-list">
+                    <div class="specs-row"><span class="specs-label" data-i18n="labMat">材質組成</span><span data-i18n="c5V1">機能精梳棉 / 彈性聚酯纖維</span></div>
+                    <div class="specs-row"><span class="specs-label" data-i18n="labCraft">工藝特色</span><span data-i18n="c5V2">一體成型無縫帽冠 / 定型記憶帽簷</span></div>
+                    <div class="specs-row"><span class="specs-label" data-i18n="labSample">打樣時程</span><span data-i18n="c5V3">14 個工作天</span></div>
+                </div>
+            </div>
+            <a href="contact.html?intent=LineSheet&style=Cap" class="cta-btn" data-i18n="c5Cta">索取此款型錄</a>
+        </div>
+
+        <!-- 6. 復古扁平獵鴨帽 -->
+        <div class="product-card">
+            <div>
+                <img class="product-image" src="flatcap.png" alt="Flat Cap" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div style="display:none; height:260px; background:#F9F6F0; align-items:center; justify-content:center; color:#6E6E6E; margin-bottom:18px; border:1px dashed #E5DEC9;">【flatcap.png】</div>
+                <div class="category-tags">
+                    <span class="tag-style" data-i18n="c6Tag">復古獵鴨帽</span>
+                    <span class="tag-season" data-i18n="c6Season">四季款</span>
+                </div>
+                <h3 data-i18n="c6Name">英倫復古扁平獵鴨帽</h3>
+                <!-- 帽型解說 -->
+                <div class="style-highlight">
+                    <strong data-i18n="featLabel">【帽型特點】</strong> <span data-i18n="c6Feat">扁平貼合的短弧簷搭配低調立體帽冠，一體成型無縫結構，自帶復古英倫紳士氣質。</span>
+                </div>
+                <p data-i18n="c6Desc">經典英倫獵鴨帽型重塑，採用一體成型針織技術打造。特色熱定型加工維持扁平俐落的帽簷線條，服貼頭型不易變形，適合復古紳士風格或街頭混搭品牌。</p>
+                <div class="specs-list">
+                    <div class="specs-row"><span class="specs-label" data-i18n="labMat">材質組成</span><span data-i18n="c6V1">精梳棉 / 羊毛混紡</span></div>
+                    <div class="specs-row"><span class="specs-label" data-i18n="labCraft">工藝特色</span><span data-i18n="c6V2">一體成型無縫帽冠 / 定型扁平短簷</span></div>
+                    <div class="specs-row"><span class="specs-label" data-i18n="labSample">打樣時程</span><span data-i18n="c6V3">14 個工作天</span></div>
+                </div>
+            </div>
+            <a href="contact.html?intent=LineSheet&style=FlatCap" class="cta-btn" data-i18n="c6Cta">索取此款型錄</a>
+        </div>
+
+        <!-- 7. 親子場合頭飾 -->
+        <div class="product-card">
+            <div>
+                <img class="product-image" src="kids.png" alt="Kids Hat" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div style="display:none; height:260px; background:#F9F6F0; align-items:center; justify-content:center; color:#6E6E6E; margin-bottom:18px; border:1px dashed #E5DEC9;">【kids.png】</div>
+                <div class="category-tags">
+                    <span class="tag-style" data-i18n="c7Tag">親子場合帽</span>
+                    <span class="tag-season" data-i18n="c7Season">四季款</span>
+                </div>
+                <h3 data-i18n="c7Name">親膚針織童帽與場合頭飾</h3>
+                <!-- 帽型解說 -->
+                <div class="style-highlight">
+                    <strong data-i18n="featLabel">【帽型特點】</strong> <span data-i18n="c7Feat">依孩童頭型客製高彈性羅紋結構，無縫接合並搭配手工造型配件，親膚無壓迫。</span>
+                </div>
+                <p data-i18n="c7Desc">為童裝、親子活動與品牌授權商品設計。嚴選無刺激親膚紗線，結合手工刺繡、造型耳朵或徽章加工，嚴格把關洗標與安全規範。</p>
+                <div class="specs-list">
+                    <div class="specs-row"><span class="specs-label" data-i18n="labMat">材質組成</span><span data-i18n="c7V1">有機棉 / 柔軟抗敏壓克力紗</span></div>
+                    <div class="specs-row"><span class="specs-label" data-i18n="labCraft">工藝特色</span><span data-i18n="c7V2">安全無縫邊設計 / 造型裝飾手工結合</span></div>
+                    <div class="specs-row"><span class="specs-label" data-i18n="labSample">打樣時程</span><span data-i18n="c7V3">14 個工作天</span></div>
+                </div>
+            </div>
+            <a href="contact.html?intent=LineSheet&style=Kids" class="cta-btn" data-i18n="c7Cta">索取此款型錄</a>
+        </div>
+    </section>
+
+    <footer>
+        <p data-i18n="footCopy">© 2026 盛全工業股份有限公司 版權所有</p>
+    </footer>
+
+    <script>
+        const translations = {
+            zh: {
+                docTitle: "產品帽型圖庫 - GU. SHENG 盛全工業",
+                navHome: "首頁", navProducts: "產品型錄", navContact: "聯絡我們",
+                sub: "盛全工業股份有限公司",
+                pageTitle: "帽型圖庫",
+                pageSub: "涵蓋 39 款產品資產之核心帽型講解，支援 14 個工作天自主打樣開發",
+                featLabel: "【帽型特點】",
+                labMat: "材質組成", labCraft: "工藝特色", labSample: "打樣時程",
+                footCopy: "© 2026 盛全工業股份有限公司 版權所有",
+                c1Tag: "紳士帽", c1Season: "春夏線", c1Name: "精品定型紳士帽",
+                c1Feat: "水滴型凹折帽冠與微上翹帽簷，賦予正裝與高端休閒兼具的立體輪廓。",
+                c1Desc: "精選天然亞麻於台灣打造。得益於先進熱定型技術，維持立體挺拔廓形，確保透氣與遮陽效果，具備優異形狀記憶力。",
+                c1V1: "天然亞麻 / 麻混紡", c1V2: "熱定型形狀記憶 / 一體成型針織", c1V3: "14 個工作天", c1Cta: "索取此款型錄",
+                c2Tag: "報童帽", c2Season: "四季款", c2Name: "精品定型報童帽",
+                c2Feat: "微澎圓弧的八角／圓形帽頂配搭硬質小短簷，修飾臉型並自帶復古英倫文藝感。",
+                c2Desc: "優雅與復古時尚兼具，頂級精梳棉編織而成。招牌熱定型加工維持微澎立體弧度與抗擠壓彈性，帶來親膚舒適體驗。",
+                c2V1: "頂級精梳棉", c2V2: "微澎立體結構 / 抗擠壓", c2V3: "14 個工作天", c2Cta: "索取此款型錄",
+                c3Tag: "貝雷帽", c3Season: "秋冬線", c3Name: "高級羊毛縮絨貝雷帽（仿皮縫邊款）",
+                c3Feat: "無簷平頂圓型剪裁，可自由抓整傾斜角度；邊緣仿皮滾邊大幅強化挺拔度與耐磨性。",
+                c3Desc: "精選澳洲羊毛縮絨一體成型，俐落仿皮滾邊搭配手工縫合細節。具備保暖與透氣度，契合軍警、旅宿等制服配件標準。",
+                c3V1: "頂級澳洲羊毛＋仿皮邊", c3V2: "高密度縮絨 / 異材質手工車縫", c3V3: "14 個工作天", c3Cta: "索取此款型錄",
+                c4Tag: "仕女成型帽", c4Season: "春夏線", c4Name: "優雅仕女定型帽",
+                c4Feat: "專為女性優雅身形打版，微鐘型或波浪微下垂簷邊，兼顧遮陽效果與高雅氣質。",
+                c4Desc: "專為女性優雅氣質打造的定型成型帽款。採用細緻麻棉混紡或紙編紗線，兼具俐落流暢的帽簷線條與遮陽效果，配戴輕盈且不易塌陷。",
+                c4V1: "天然麻棉混紡 / 紙編特種紗", c4V2: "立體熱定型弧度 / 輕盈透氣防曬", c4V3: "14 個工作天", c4Cta: "索取此款型錄",
+                c5Tag: "針織定型球帽", c5Season: "四季款", c5Name: "潮流針織定型棒球帽",
+                c5Feat: "結合圓弧弧形硬簷與一體成型圓頂，告別傳統裁片接縫，包覆性佳且透氣度極高。",
+                c5Desc: "結合一體成型針織帽體與定型弧度帽簷技術。打破傳統裁片成衣感，具備高透氣性、抗壓不變形與服貼頭型的立體輪廓，支援高爾夫與高街潮流配件品牌。",
+                c5V1: "機能精梳棉 / 彈性聚酯纖維", c5V2: "一體成型無縫帽冠 / 定型記憶帽簷", c5V3: "14 個工作天", c5Cta: "索取此款型錄",
+                c6Tag: "復古獵鴨帽", c6Season: "四季款", c6Name: "英倫復古扁平獵鴨帽",
+                c6Feat: "扁平貼合的短弧簷搭配低調立體帽冠，一體成型無縫結構，自帶復古英倫紳士氣質。",
+                c6Desc: "經典英倫獵鴨帽型重塑，採用一體成型針織技術打造。特色熱定型加工維持扁平俐落的帽簷線條，服貼頭型不易變形，適合復古紳士風格或街頭混搭品牌。",
+                c6V1: "精梳棉 / 羊毛混紡", c6V2: "一體成型無縫帽冠 / 定型扁平短簷", c6V3: "14 個工作天", c6Cta: "索取此款型錄",
+                c7Tag: "親子場合帽", c7Season: "四季款", c7Name: "親膚針織童帽與場合頭飾",
+                c7Feat: "依孩童頭型客製高彈性羅紋結構，無縫接合並搭配手工造型配件，親膚無壓迫。",
+                c7Desc: "為童裝、親子活動與品牌授權商品設計。嚴選無刺激親膚紗線，結合手工刺繡、造型耳朵或徽章加工，嚴格把關洗標與安全規範。",
+                c7V1: "有機棉 / 柔軟抗敏壓克力紗", c7V2: "安全無縫邊設計 / 造型裝飾手工結合", c7V3: "14 個工作天", c7Cta: "索取此款型錄"
+            },
+            en: {
+                docTitle: "Product Catalog - GU. SHENG",
+                navHome: "HOME", navProducts: "PRODUCTS", navContact: "CONTACT",
+                sub: "FASHION HEADWEAR DEVELOPMENT PARTNER",
+                pageTitle: "SILHOUETTE LIBRARY",
+                pageSub: "Structured silhouettes covering 39 catalog assets with 14-day dedicated sampling",
+                featLabel: "【Silhouette】",
+                labMat: "Materials", labCraft: "Craft", labSample: "Sampling lead time",
+                footCopy: "© 2026 GU. SHENG Industrial Co., Ltd. All rights reserved.",
+                c1Tag: "Fedora", c1Season: "Spring / Summer", c1Name: "Premium Thermo-Block Fedora",
+                c1Feat: "A teardrop pinched crown with a gently upturned brim, giving a sculpted profile that suits formal and elevated casual looks alike.",
+                c1Desc: "Crafted in Taiwan from natural linen. Advanced thermo-blocking keeps the silhouette crisp while ensuring breathability, sun coverage and excellent shape memory.",
+                c1V1: "Natural linen / linen blends", c1V2: "Thermo shape-memory / one-piece knit", c1V3: "14 working days", c1Cta: "Request this line sheet",
+                c2Tag: "Casquette", c2Season: "All year", c2Name: "Premium Thermo-Block Casquette",
+                c2Feat: "A softly rounded eight-panel crown with a firm short visor, flattering the face with a vintage British literary feel.",
+                c2Desc: "Elegant and retro in equal measure, knitted from top-grade combed cotton. Our signature thermo-blocking keeps the gentle three-dimensional curve resilient and kind to the skin.",
+                c2V1: "Premium combed cotton", c2V2: "Structured soft crown / crush-resistant", c2V3: "14 working days", c2Cta: "Request this line sheet",
+                c3Tag: "Beret", c3Season: "Autumn / Winter", c3Name: "Premium Felted Wool Beret (Faux-Leather Trim)",
+                c3Feat: "A crownless flat circular cut that can be tilted at will, with faux-leather edging that strongly reinforces structure and abrasion resistance.",
+                c3Desc: "One-piece felted Australian wool with crisp faux-leather binding and hand-stitched details — warm yet breathable, meeting uniform accessory standards for services and hospitality.",
+                c3V1: "Premium Australian wool + faux-leather trim", c3V2: "High-density felting / mixed-material hand stitching", c3V3: "14 working days", c3Cta: "Request this line sheet",
+                c4Tag: "Women's Shaped Hat", c4Season: "Spring / Summer", c4Name: "Elegant Shaped Woman's Hat",
+                c4Feat: "Patterned for the feminine silhouette, with a soft bell crown or gently rippling drooping brim balancing sun coverage and grace.",
+                c4Desc: "A shaped hat built for elegance, in fine linen-cotton blends or paper-braid yarns — fluid brim lines with real sun coverage, light to wear and resistant to collapsing.",
+                c4V1: "Linen-cotton blend / paper-braid specialty yarn", c4V2: "Thermo-blocked curves / light, breathable, sun-safe", c4V3: "14 working days", c4Cta: "Request this line sheet",
+                c5Tag: "Knit Thermo-Block Cap", c5Season: "All year", c5Name: "Trend Seamless Knit Baseball Cap",
+                c5Feat: "A curved structured visor fused with a one-piece round crown — no traditional cut-and-sew panels, excellent coverage and airflow.",
+                c5Desc: "A one-piece knit crown combined with shape-memory visor technology. Beyond traditional panel construction: highly breathable, crush-resistant and head-hugging, built for golf and streetwear accessory brands.",
+                c5V1: "Performance combed cotton / stretch polyester", c5V2: "Seamless crown / shape-memory visor", c5V3: "14 working days", c5Cta: "Request this line sheet",
+                c6Tag: "Flat Cap", c6Season: "All year", c6Name: "British Vintage Flat Cap",
+                c6Feat: "A flat, close-fitting short curved brim with a low structured crown in seamless one-piece knit — timeless British gentleman character.",
+                c6Desc: "A modern rework of the classic flat cap in one-piece knit construction. Thermo-blocking holds the brim flat and sharp, hugging the head without losing shape; suited to heritage, gentleman and street-mix lines.",
+                c6V1: "Combed cotton / wool blends", c6V2: "Seamless crown / thermo-blocked flat short brim", c6V3: "14 working days", c6Cta: "Request this line sheet",
+                c7Tag: "Kids & Occasion", c7Season: "All year", c7Name: "Skin-Friendly Knit Kids Caps & Occasion Headwear",
+                c7Feat: "High-elastic rib structure custom to children's head shapes, seamlessly joined and finished with handmade trims — gentle with no pressure.",
+                c7Desc: "Designed for kidswear, family events and licensed merchandise. Hypoallergenic yarns combined with hand embroidery, character ears or badge trims, with strict care labels and safety compliance.",
+                c7V1: "Organic cotton / soft hypoallergenic acrylic yarn", c7V2: "Seamless-edge design / hand-crafted trims", c7V3: "14 working days", c7Cta: "Request this line sheet"
+            },
+            jp: {
+                docTitle: "製品ラインナップ - GU. SHENG",
+                navHome: "ホーム", navProducts: "製品紹介", navContact: "お問い合わせ",
+                sub: "ファッション帽子開発パートナー",
+                pageTitle: "帽型ライブラリ",
+                pageSub: "39の製品資産からなる主要帽型と仕様解説、14日間のサンプル開発に対応",
+                featLabel: "【帽型の特長】",
+                labMat: "素材構成", labCraft: "工法の特徴", labSample: "サンプル納期",
+                footCopy: "© 2026 盛全工業股份有限公司",
+                c1Tag: "紳士帽", c1Season: "春夏ライン", c1Name: "プレミアム定型フェドーラ",
+                c1Feat: "雨滴型のくぼみを入れたクラウンとわずかに反ったつば。フォーマルにも上質カジュアルにも合う立体シルエット。",
+                c1Desc: "台湾にて天然リネン素材で製作。先進の熱定型技術により立体的で毅然としたシルエットを維持し、通気性・日差し対策・優れた型戻りを両立します。",
+                c1V1: "天然リネン／リネン混紡", c1V2: "熱定型・型記憶／一体成型ニット", c1V3: "14営業日", c1Cta: "この品目のラインシートを請求",
+                c2Tag: "キャスケット", c2Season: "通年", c2Name: "プレミアム定型キャスケット",
+                c2Feat: "ふっくら立体的な八角型・丸型クラウンと硬めの短いつばが、顔立ちを引き締め、レトロで文芸的な英国風の趣を添えます。",
+                c2Desc: "上質なコーマ綿を編み上げた、優雅さとレトロ感を兼ね備えた一品。独自の熱定型加工で繊細な立体カーブと耐圧性を保ち、肌にやさしい着用感を届けます。",
+                c2V1: "上質コーマ綿", c2V2: "立体カーブ構造／耐圧性", c2V3: "14営業日", c2Cta: "この品目のラインシートを請求",
+                c3Tag: "ベレー帽", c3Season: "秋冬ライン", c3Name: "上質ウールフェルトベレー（フェイクレザー縁取り）",
+                c3Feat: "つばのない平らな円形カットで自由に角度を調整でき、フェイクレザーの縁取りがハリと耐摩耗性を大きく高めます。",
+                c3Desc: "オーストラリア産ウールを一体成型でフェルト仕上げ。フェイクレザーの縁取りと手縫いディテールを組み合わせ、保温性と通気性を備え、警察・制服やホスピタリティ用途の基準にも適合します。",
+                c3V1: "上質オーストラリアウール＋フェイクレザー縁", c3V2: "高密度フェルト加工／異素材ハンドステッチ", c3V3: "14営業日", c3Cta: "この品目のラインシートを請求",
+                c4Tag: "レディスハット", c4Season: "春夏ライン", c4Name: "エレガント定型レディスハット",
+                c4Feat: "女性のシルエットに合わせたパターン設計。ベル型やゆるやかに波打つ垂れつばが、日差し対策と上品さを両立します。",
+                c4Desc: "女性の気品を活かす定型ハット。繊細な麻綿混紡や紙糸を採用し、美しいつばのラインと遮光性を叶え、軽くて潰れにくい仕上がりです。",
+                c4V1: "麻綿混紡／紙編特殊糸", c4V2: "立体熱定型カーブ／軽量・通気・紫外線対策", c4V3: "14営業日", c4Cta: "この品目のラインシートを請求",
+                c5Tag: "ニットキャップ", c5Season: "通年", c5Name: "トレンド一体成型ニットキャップ",
+                c5Feat: "カーブのついた硬いつばと一体成型の丸いクラウンを融合。従来の裁断面の縫い合わせを排し、フィット感と通気性に優れます。",
+                c5Desc: "一体成型ニットのクラウンと定型カーブつば技術を融合。従来の裁片構造を超えて、高通気・耐圧・頭に密着する立体シルエットを実現し、ゴルフやストリートウェアのブランドに対応します。",
+                c5V1: "機能性コーマ綿／伸縮ポリエステル", c5V2: "無縫クラウン／定型記憶つば", c5V3: "14営業日", c5Cta: "この品目のラインシートを請求",
+                c6Tag: "ハンチング", c6Season: "通年", c6Name: "英国レトロ ハンチング",
+                c6Feat: "頭にぴったり寄る平たい短いつばと低い立体クラウンの一体成型ニット。英国紳士の趣をまといます。",
+                c6Desc: "定番のハンチング帽型を一体成型ニットで再構築。独自の熱定型加工でつばのフラットでシャープなラインを保ち、型崩れしにくく頭型に密着。レトロ・紳士系やストリートミックスのブランドにマッチします。",
+                c6V1: "コーマ綿／ウール混紡", c6V2: "無縫クラウン／定型フラット短つば", c6V3: "14営業日", c6Cta: "この品目のラインシートを請求",
+                c7Tag: "キッズ＆ギフト", c7Season: "通年", c7Name: "肌やさしいニット子ども帽・ギフト帽",
+                c7Feat: "子どもの頭型に合わせた高弾力リブ構造。継ぎ目のない仕上げと手作りの飾り素材で、圧迫感のない心地よさ。",
+                c7Desc: "子供服、家族イベント、ライセンス商品向けに設計。肌に優しい低刺激糸を厳選し、手刺繍・キャラ耳・ワッペン加工を組み合わせ、洗濯表示と安全規格を厳格に管理します。",
+                c7V1: "オーガニックコットン／低刺激アクリル糸", c7V2: "縁なし無縫設計／手作り装飾の組み合わせ", c7V3: "14営業日", c7Cta: "この品目のラインシートを請求"
+            }
+        };
+
+        function switchLang(lang, btn) {
+            const dict = translations[lang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key] !== undefined) el.innerText = dict[key];
+            });
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.documentElement.lang = lang === 'zh' ? 'zh-TW' : (lang === 'jp' ? 'ja' : 'en');
+            document.title = dict.docTitle;
+        }
+    </script>
+</body>
+</html>

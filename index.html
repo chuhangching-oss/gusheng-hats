@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GU. SHENG 盛全工業｜品牌帽款開發夥伴</title>
+    <meta name="description" content="GU. SHENG (盛全工業) 創立於1984年台灣台北。我們超越傳統代工，定位為品牌的時尚帽款開發夥伴。專精於一體成型針織、特種紗線與熱定型加工(Thermo Hat)，支援14天自主打樣。">
+    <meta name="keywords" content="GU. SHENG, 盛全工業, Headwear Development Partner, Hat Manufacturer Taiwan, Thermo Hat, 紳士帽, 報童帽, 貝雷帽制服配件">
+    <style>
+        :root {
+            --bg-color: #F9F6F0;      /* 日系經典米白色 */
+            --text-main: #2C2C2C;     /* 深炭灰 */
+            --text-sub: #6E6E6E;      /* 說明灰 */
+            --accent: #8C7E6C;        /* 職人大地色 */
+            --border: #E5DEC9;        /* 柔和米黃邊框 */
+        }
+        html {
+            scrollbar-gutter: stable; /* 統一保留右側捲軸寬度，避免切換頁面時版面左右微移 */
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: "Helvetica Neue", Arial, "Noto Sans TC", "Hiragino Kaku Gothic ProN", sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        /* 頂部選單欄：三欄對稱結構，上緣完全齊平 */
+        header {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 25px 20px 20px;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: start;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            line-height: 1.2;
+        }
+        .logo span {
+            font-size: 11px;
+            color: var(--text-sub);
+            display: block;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        /* 🌟 中間最上方 Logo 樣式：高度已放大 1.5 倍 (78px * 1.5 = 117px) */
+        .header-center-logo {
+            text-align: center;
+            padding: 0 15px;
+        }
+        .header-center-logo img {
+            height: 176px; /* 已再放大 50% (117px * 1.5 = 175.5 ≈ 176px) */
+            width: 176px; /* 明確預留寬度，圖片載入前版面就固定，不抖動 */
+            display: block;
+            margin: 0 auto;
+            transition: transform 0.3s ease;
+        }
+        .header-center-logo img:hover {
+            transform: translateY(-2px);
+        }
+
+        .header-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            line-height: 1.2;
+        }
+
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 22px;
+            font-size: 13px;
+            letter-spacing: 1.5px;
+        }
+        nav a:hover, nav a.active {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 5px;
+            margin-top: 15px;
+            justify-content: flex-end;
+        }
+        .lang-btn {
+            background: none;
+            border: 1px solid var(--border);
+            padding: 2px 8px;
+            font-size: 11px;
+            cursor: pointer;
+            color: var(--text-sub);
+        }
+        .lang-btn.active {
+            border-color: var(--accent);
+            color: var(--text-main);
+            background: #FFF;
+            font-weight: bold;
+        }
+
+        /* 品牌定位宣示與公司介紹區塊 */
+        .hero {
+            max-width: 860px;
+            margin: 60px auto 40px;
+            text-align: center;
+            padding: 0 20px;
+        }
+        .hero-tag {
+            display: inline-block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 3px 14px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            background: #FFF;
+        }
+        .hero h1 {
+            font-size: 28px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .hero p {
+            font-size: 15px;
+            color: var(--text-sub);
+            text-align: justify;
+            text-justify: inter-ideograph;
+            line-height: 1.9;
+        }
+
+        .video-container {
+            max-width: 860px;
+            margin: 40px auto 70px;
+            padding: 0 20px;
+        }
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: #FFF;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.03);
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* 買方決策支援工具模組 */
+        .tools-section {
+            max-width: 1100px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+        .section-heading {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin-bottom: 35px;
+        }
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+        }
+        .tool-card {
+            background: #FFF;
+            border: 1px solid var(--border);
+            padding: 30px 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .tool-card h3 {
+            font-size: 16px;
+            margin: 0 0 10px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        .tool-card p {
+            font-size: 13px;
+            color: var(--text-sub);
+            margin: 0 0 20px;
+            line-height: 1.6;
+        }
+        .tool-btn {
+            display: inline-block;
+            font-size: 12px;
+            letter-spacing: 1px;
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent);
+            padding-bottom: 3px;
+            width: fit-content;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .tool-btn:hover {
+            color: var(--text-main);
+            border-bottom-color: var(--text-main);
+        }
+
+        footer {
+            background-color: #FFFFFF;
+            border-top: 1px solid var(--border);
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-sub);
+            letter-spacing: 1px;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px 14px;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-decoration: none;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            background-color: var(--bg-color);
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        .social-btn:hover {
+            border-color: var(--accent);
+            color: #FFF;
+            background-color: var(--accent);
+        }
+
+        /* 手機版排版調適 */
+        @media (max-width: 768px) {
+            header {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                text-align: center;
+                align-items: center;
+            }
+            .header-center-logo {
+                order: -1;
+            }
+            .header-center-logo img {
+                height: 143px;
+                width: 143px; /* 明確預留寬度，避免抖動 */
+            }
+            .header-right {
+                align-items: center;
+            }
+            nav a {
+                margin: 0 10px;
+            }
+            .lang-switch {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <!-- 左側：公司品牌字樣 -->
+        <div class="logo">
+            GU. SHENG
+            <span id="company-sub" data-i18n="sub">盛全工業股份有限公司</span>
+        </div>
+
+        <!-- 🌟 中間最上面：Logo 上緣與兩側選單對齊，高度已放大 1.5 倍 -->
+        <div class="header-center-logo">
+            <img src="logo.png" alt="GU. SHENG">
+        </div>
+
+        <!-- 右側：選單與語系切換 -->
+        <div class="header-right">
+            <nav>
+                <a href="index.html" class="active" data-i18n="navHome">首頁</a>
+                <a href="products.html" data-i18n="navProducts">產品型錄</a>
+                <a href="contact.html" data-i18n="navContact">聯絡我們</a>
+            </nav>
+            <div class="lang-switch">
+                <button class="lang-btn active" onclick="switchLang('zh', this)">繁中</button>
+                <button class="lang-btn" onclick="switchLang('en', this)">EN</button>
+                <button class="lang-btn" onclick="switchLang('jp', this)">JP</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-tag" id="hero-tag" data-i18n="tag">品牌合作開發型錄與量產對策</div>
+        <h1 id="hero-title" data-i18n="title">將設計輪廓，轉化為可量產的規格語言</h1>
+        <p id="hero-desc" data-i18n="desc">
+            盛全工業（GU. SHENG）創立於 1984 年台灣台北，我們超越傳統代工製造，定位為國際品牌的「時尚帽款開發夥伴」。我們專精於一體成型針織、特種紗線與獨家熱定型加工，協助設計師與採購主管在 14 個工作天內將系列概念，具體落實為符合國際標準的打樣與量產規格。深獲日本、德國、美國等高端時裝與生活風格品牌信賴。
+        </p>
+    </section>
+
+    <div class="video-container">
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/GUpo_f4HOMQ" title="GU. SHENG Official Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <section class="tools-section">
+        <div class="section-heading" id="tools-title" data-i18n="toolsTitle">快速開始合作</div>
+        <div class="tools-grid">
+            <div class="tool-card">
+                <div>
+                    <h3 id="t1-title" data-i18n="t1Title">帽型圖庫</h3>
+                    <p id="t1-desc" data-i18n="t1Desc">提供貝雷、報童、紳士帽等高辨識度輪廓與季度商品搭配方案，滿足品牌企劃選品需求。</p>
+                </div>
+                <a href="products.html" class="tool-btn" id="t1-btn" data-i18n="t1Btn">瀏覽帽型圖庫 &rarr;</a>
+            </div>
+            <div class="tool-card">
+                <div>
+                    <h3 id="t2-title" data-i18n="t2Title">工法與細節</h3>
+                    <p id="t2-desc" data-i18n="t2Desc">包含一體成型針織、仿皮縫邊、特種紗線與熱定型結構記憶技術，降低設計與樣品落差。</p>
+                </div>
+                <a href="construction.html" class="tool-btn" id="t2-btn" data-i18n="t2Btn">認識核心工法 &rarr;</a>
+            </div>
+            <div class="tool-card">
+                <div>
+                    <h3 id="t3-title" data-i18n="t3Title">採購指南</h3>
+                    <p id="t3-desc" data-i18n="t3Desc">透明說明起訂量影響因子、14 個工作天樣品節點、歐美法規標示與帽款保養資訊，加速內部審核。</p>
+                </div>
+                <a href="contact.html?intent=RFQChecklist" class="tool-btn" id="t3-btn" data-i18n="t3Btn">索取詢價檢查表 &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p data-i18n="footCopy">© 2026 盛全工業股份有限公司 版權所有</p>
+    </footer>
+
+    <script>
+        const translations = {
+            zh: {
+                docTitle: "GU. SHENG 盛全工業｜品牌帽款開發夥伴",
+                navHome: "首頁", navProducts: "產品型錄", navContact: "聯絡我們",
+                sub: "盛全工業股份有限公司",
+                tag: "品牌合作開發型錄與量產對策",
+                title: "將設計輪廓，轉化為可量產的規格語言",
+                desc: "盛全工業（GU. SHENG）創立於 1984 年台灣台北，我們超越傳統代工製造，定位為國際品牌的「時尚帽款開發夥伴」。我們專精於一體成型針織、特種紗線與獨家熱定型加工，協助設計師與採購主管在 14 個工作天內將系列概念，具體落實為符合國際標準的打樣與量產規格。深獲日本、德國、美國等高端時裝與生活風格品牌信賴。",
+                toolsTitle: "快速開始合作",
+                t1Title: "帽型圖庫", t1Desc: "提供貝雷、報童、紳士帽等高辨識度輪廓與季度商品搭配方案，滿足品牌企劃選品需求。", t1Btn: "瀏覽帽型圖庫 →",
+                t2Title: "工法與細節", t2Desc: "包含一體成型針織、仿皮縫邊、特種紗線與熱定型結構記憶技術，降低設計與樣品落差。", t2Btn: "認識核心工法 →",
+                t3Title: "採購指南", t3Desc: "透明說明起訂量影響因子、14 個工作天樣品節點、歐美法規標示與帽款保養資訊，加速內部審核。", t3Btn: "索取詢價檢查表 →",
+                footCopy: "© 2026 盛全工業股份有限公司 版權所有"
+            },
+            en: {
+                docTitle: "GU. SHENG - Fashion Headwear Development Partner",
+                navHome: "HOME", navProducts: "PRODUCTS", navContact: "CONTACT",
+                sub: "FASHION HEADWEAR DEVELOPMENT PARTNER",
+                tag: "Production-Ready Headwear Development",
+                title: "Turning Design Directions into Production-Ready Briefs",
+                desc: "Founded in 1984 in Taipei, Taiwan, GU. SHENG transitions beyond general OEM into a dedicated Fashion Headwear Development Partner for global lifestyle labels. Empowered by our signature thermo-blocking technology and seamless knitting precision, we turn design concepts into structured, production-ready specifications with 14-day dedicated sampling. Trusted across Japan, Germany, and North America.",
+                toolsTitle: "Get Started in a Click",
+                t1Title: "Silhouette Library", t1Desc: "Curated Fedora, Casquette, and Beret silhouettes designed to build cohesive seasonal collections for merchandising leads.", t1Btn: "View Silhouette Library →",
+                t2Title: "Construction & Craft", t2Desc: "In-depth insights into seamless knit density, faux-leather bindings, and shape-memory thermo-blocking for creative directors.", t2Btn: "Submit Design Brief →",
+                t3Title: "Buying & Sourcing Guide", t3Desc: "Transparent parameters covering MOQ drivers, 14-day sampling milestones, EU/US labeling compliance, and hat care guidance.", t3Btn: "Request RFQ Checklist →",
+                footCopy: "© 2026 GU. SHENG Industrial Co., Ltd. All rights reserved."
+            },
+            jp: {
+                docTitle: "GU. SHENG｜ファッション帽子開発パートナー",
+                navHome: "ホーム", navProducts: "製品紹介", navContact: "お問い合わせ",
+                sub: "ファッション帽子開発パートナー",
+                tag: "ブランド向け仕様策定・量産開発",
+                title: "デザインの輪郭を、確かな量産仕様へ昇華させる",
+                desc: "1984年台湾台北市にて創業。GU. SHENG（盛全工業）は、単なるOEM工場の枠を超え、ブランドの「ファッション帽子開発パートナー」として歩んでいます。独自の一体成型ニットおよび熱定型成型加工技術を駆使し、デザイナーの構想を14日間の試作を通じて実用的な量産仕様へと変換します。日本、ドイツ、アメリカなどの高品質アパレル市場で高く評価されています。",
+                toolsTitle: "すぐに始める開発相談",
+                t1Title: "帽型ライブラリ", t1Desc: "ベレー、キャスケット、中折れハット等、高付加価値な輪郭とシーズン展開を網羅したラインナップ。", t1Btn: "帽型ライブラリを見る →",
+                t2Title: "工法とディテール", t2Desc: "レザーパイピング、特殊糸、型崩れを防ぐ熱定型技術など、クリエイティブを忠実に再現する技術。", t2Btn: "デザイン相談を開始 →",
+                t3Title: "調達・購買ガイド", t3Desc: "最小ロット数の決定要因、14日間のサンプル工程、輸出規格、帽子のお手入れ情報を明示し、調達判断を円滑化。", t3Btn: "見積チェックリストを請求 →"
+                footCopy: "© 2026 盛全工業股份有限公司"
+            }
+        };
+
+        function switchLang(lang, btn) {
+            const dict = translations[lang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key] !== undefined) el.innerText = dict[key];
+            });
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.documentElement.lang = lang === 'zh' ? 'zh-TW' : (lang === 'jp' ? 'ja' : 'en');
+            document.title = dict.docTitle;
+        }
+    </script>
+</body>
+</html>
