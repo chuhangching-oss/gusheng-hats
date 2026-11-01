@@ -18,7 +18,7 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-family: Arial, "Microsoft JhengHei", "微軟正黑體", "Noto Sans TC", "Meiryo", sans-serif;
             line-height: 1.8;
             margin: 0;
             padding: 0;
@@ -34,16 +34,24 @@
             border-bottom: 1px solid var(--border);
         }
         .logo {
-            font-size: 20px;
-            font-weight: 500;
-            letter-spacing: 2px;
+            text-decoration: none;
+            color: inherit;
+            display: block;
             line-height: 1.2;
         }
-        .logo span {
+        .brand-main {
+            font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+            font-weight: 700;
+            font-size: 17px;
+            letter-spacing: 1px;
+            display: block;
+        }
+        .brand-sub {
+            font-family: Arial, sans-serif;
             font-size: 11px;
             color: var(--text-sub);
             display: block;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             margin-top: 4px;
         }
         .header-center-logo {
@@ -250,10 +258,10 @@
 <body>
 
     <header>
-        <div class="logo">
-            GU. SHENG
-            <span id="company-sub" data-i18n="sub">盛全工業股份有限公司</span>
-        </div>
+        <a class="logo" href="index.html">
+            <span class="brand-main" data-i18n="brandMain">盛全工業股份有限公司</span>
+            <span class="brand-sub" id="company-sub" data-i18n="sub">GU. SHENG</span>
+        </a>
         <div class="header-center-logo">
             <img src="logo.png" alt="GU. SHENG">
         </div>
@@ -371,7 +379,8 @@
             zh: {
                 docTitle: "工法與細節 - GU. SHENG 盛全工業",
                 navHome: "首頁", navProducts: "產品型錄", navContact: "聯絡我們",
-                sub: "盛全工業股份有限公司",
+                brandMain: "盛全工業股份有限公司",
+                sub: "GU. SHENG",
                 pageTitle: "工法與細節",
                 pageSub: "五大核心步驟，把設計輪廓做成結構化、可量產的帽款",
                 stepLabel: "步驟 0",
@@ -391,6 +400,7 @@
             en: {
                 docTitle: "Craft & Details - GU. SHENG",
                 navHome: "HOME", navProducts: "PRODUCTS", navContact: "CONTACT",
+                brandMain: "GU. SHENG INDUSTRIAL CO., LTD.",
                 sub: "FASHION HEADWEAR DEVELOPMENT PARTNER",
                 pageTitle: "CRAFT & DETAILS",
                 pageSub: "Five core steps that turn design concepts into structured, production-ready hats",
@@ -411,6 +421,7 @@
             jp: {
                 docTitle: "工法とディテール - GU. SHENG",
                 navHome: "ホーム", navProducts: "製品紹介", navContact: "お問い合わせ",
+                brandMain: "盛全工業株式会社",
                 sub: "ファッション帽子開発パートナー",
                 pageTitle: "工法とディテール",
                 pageSub: "5つの核心ステップで、デザインの輪郭を量産可能な帽型へ",
