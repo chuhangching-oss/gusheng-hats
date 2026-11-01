@@ -262,6 +262,51 @@
             color: #FFF;
             background-color: var(--accent);
         }
+
+        .qr-section {
+            margin-top: 40px;
+            text-align: center;
+        }
+        .qr-section h2 {
+            font-size: 20px;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        .qr-card {
+            background-color: #FFFFFF;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+            max-width: 320px;
+            margin: 0 auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        .qr-card img {
+            width: 100%;
+            max-width: 236px;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+        }
+        .qr-card h4 {
+            font-size: 15px;
+            color: var(--text-main);
+            margin: 14px 0 6px;
+        }
+        .qr-card p {
+            font-size: 12.5px;
+            color: var(--text-sub);
+        }
+        .qr-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        @media (min-width: 700px) {
+            .qr-cards { flex-direction: row; justify-content: center; }
+        }
     </style>
 </head>
 <body>
@@ -310,12 +355,6 @@
                 <span data-i18n="addrDetail">台灣新北市三重區</span>
             </div>
 
-            <div style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 20px;">
-                <span class="info-label" id="lbl-line" data-i18n="line">即時溝通窗口</span>
-                <a href="https://line.me/ti/p/Q-Yo11CgqY" target="_blank" class="line-action-btn" id="lbl-linebtn" data-i18n="linebtn">
-                    點擊加入公司官方 LINE 帳號
-                </a>
-            </div>
         </div>
 
         <!-- 右欄：買方 RFQ 登記表單 -->
@@ -359,6 +398,27 @@
             </form>
         </div>
     </div>
+
+    <section class="qr-section">
+        <h2 data-i18n="qrTitle">即時聯繫 QR Code</h2>
+        <div class="qr-cards">
+            <div class="qr-card">
+                <img src="whatsapp-qr.png" alt="WhatsApp QR Code">
+                <h4>WhatsApp</h4>
+                <p data-i18n="qrWa">掃描 QR 加入 WhatsApp</p>
+            </div>
+            <div class="qr-card">
+                <img src="wechat-qr.png" alt="WeChat QR Code">
+                <h4>WeChat 微信</h4>
+                <p data-i18n="qrWe">掃描 QR 加入微信</p>
+            </div>
+            <div class="qr-card">
+                <img src="line-qr.png" alt="LINE QR Code">
+                <h4>LINE</h4>
+                <p data-i18n="qrLine">掃描 QR 加入 LINE</p>
+            </div>
+        </div>
+    </section>
 
     <footer>
         <p data-i18n="footCopy">© 2026 盛全工業股份有限公司 版權所有</p>
@@ -428,7 +488,7 @@
                 docTitle: "聯絡與詢價 - GU. SHENG 盛全工業",
                 navHome: "首頁", navProducts: "產品型錄", navContact: "聯絡我們",
                 sub: "盛全工業股份有限公司",
-                title: "合作開發諮詢與商務對話", sampling: "打樣時程承諾", samplingDetail: "14 個工作天自主打樣開發", emailLabel: "電子郵件", phone: "公司電話", addr: "台北總部研發中心", addrDetail: "台灣新北市三重區", line: "即時溝通窗口", linebtn: "點擊加入公司官方 LINE 帳號",
+                title: "合作開發諮詢與商務對話", sampling: "打樣時程承諾", samplingDetail: "14 個工作天自主打樣開發", emailLabel: "電子郵件", phone: "公司電話", addr: "台北總部研發中心", addrDetail: "台灣新北市三重區", qrTitle: "即時聯繫 QR Code", qrWa: "掃描 QR 加入 WhatsApp 對話", qrWe: "掃描 QR 加入微信對話", qrLine: "掃描 QR 加入 LINE",
                 formTitle: "啟動開發或索取資料", formSub: "我們將在 24 小時內指派對應技術專員回覆",
                 oRole1: "商品企劃", oRole2: "服裝設計", oRole3: "採購主管", oRole4: "其他商務夥伴",
                 oIntent1: "索取產品型錄與規格書", oIntent2: "索取詢價檢查表", oIntent3: "提交設計方向與打樣（14 個工作天）", oIntent4: "索取帽款保養資訊", oIntent5: "預約 20 分鐘開發諮詢視訊",
@@ -440,7 +500,8 @@
                 docTitle: "Inquiries - GU. SHENG",
                 navHome: "HOME", navProducts: "PRODUCTS", navContact: "CONTACT",
                 sub: "FASHION HEADWEAR DEVELOPMENT PARTNER",
-                title: "Development Consultation & Business Contact", sampling: "Sampling Schedule", samplingDetail: "In-house sampling within 14 working days.", emailLabel: "EMAIL ADDRESS", phone: "TELEPHONE", addr: "TAIPEI HQ R&D CENTER", addrDetail: "Sanchong Dist., New Taipei City, Taiwan", line: "INSTANT CHAT", linebtn: "Click to Connect via LINE",
+                title: "Development Consultation & Business Contact", sampling: "Sampling Schedule", samplingDetail: "In-house sampling within 14 working days.", emailLabel: "EMAIL ADDRESS", phone: "TELEPHONE", addr: "TAIPEI HQ R&D CENTER", addrDetail: "Sanchong Dist., New Taipei City, Taiwan",
+                qrTitle: "Instant Messaging — QR Codes", qrWa: "Scan to start a WhatsApp conversation", qrWe: "Scan to add us on WeChat", qrLine: "Scan to add us on LINE",
                 formTitle: "Start a Brief or Request a Pack", formSub: "Our technical team will respond within 24 hours.",
                 oRole1: "Merchandiser", oRole2: "Creative Lead", oRole3: "Sourcing Manager", oRole4: "Other Partner",
                 oIntent1: "Request line sheet & specifications", oIntent2: "Request RFQ checklist", oIntent3: "Submit design brief & sampling (14 days)", oIntent4: "Request hat care information", oIntent5: "Book a 20-min development video call",
@@ -452,7 +513,8 @@
                 docTitle: "お問い合わせ - GU. SHENG 盛全工業",
                 navHome: "ホーム", navProducts: "製品紹介", navContact: "お問い合わせ",
                 sub: "ファッション帽子開発パートナー",
-                title: "開発相談・商談窓口", sampling: "サンプル納期コミットメント", samplingDetail: "自社サンプル開発14営業日以内", emailLabel: "メールアドレス", phone: "電話番号", addr: "台北本社 研究開発センター", addrDetail: "台湾新北市三重区", line: "チャット相談", linebtn: "クリックしてLINEで友達追加",
+                title: "開発相談・商談窓口", sampling: "サンプル納期コミットメント", samplingDetail: "自社サンプル開発14営業日以内", emailLabel: "メールアドレス", phone: "電話番号", addr: "台北本社 研究開発センター", addrDetail: "台湾新北市三重区",
+                qrTitle: "QRコードで即時連絡", qrWa: "スキャンしてWhatsAppでどうぞ", qrWe: "スキャンしてWeChat（微信）でどうぞ", qrLine: "スキャンしてLINEで友達追加",
                 formTitle: "開発相談・資料請求フォーム", formSub: "24時間以内に専門スタッフが回答します。",
                 oRole1: "商品企画", oRole2: "デザイナー", oRole3: "調達責任者", oRole4: "その他のパートナー",
                 oIntent1: "ラインシートと仕様書の請求", oIntent2: "見積チェックリストの請求", oIntent3: "デザイン提出とサンプル開発（14日）", oIntent4: "帽子のお手入れ情報を請求", oIntent5: "20分の開発相談ビデオを予約",
