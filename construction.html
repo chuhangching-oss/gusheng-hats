@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>聯絡與詢價 - GU. SHENG 盛全工業</title>
+    <title>工法與細節 - GU. SHENG 盛全工業</title>
     <style>
         :root {
             --bg-color: #F9F6F0;
@@ -106,16 +106,121 @@
             font-weight: bold;
         }
 
-        .contact-layout {
-            max-width: 1000px;
-            margin: 60px auto 100px;
+        .section-header {
+            text-align: center;
+            margin: 60px 0 40px;
             padding: 0 20px;
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 40px;
         }
+        .section-header h1 {
+            font-size: 24px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+        .section-header p {
+            font-size: 13.5px;
+            color: var(--text-sub);
+        }
+
+        /* 步驟式照片區塊：左右交錯，類似製作流程 banner 的節奏 */
+        .craft-list {
+            max-width: 1100px;
+            margin: 0 auto 100px;
+            padding: 0 20px;
+        }
+        .craft-step {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 45px;
+            align-items: center;
+            margin-bottom: 70px;
+        }
+        .craft-step:nth-child(even) {
+            grid-template-columns: 1.1fr 1fr;
+        }
+        .craft-step:nth-child(even) .craft-photo {
+            order: 2;
+        }
+        .craft-photo {
+            position: relative;
+            border: 1px solid var(--border);
+            background: #FFFFFF;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+        }
+        .craft-photo img {
+            display: block;
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        .photo-placeholder {
+            display: none;
+            height: 300px;
+            background: #FFF;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: var(--text-sub);
+            font-size: 13px;
+            gap: 8px;
+        }
+        .photo-placeholder .ph-file {
+            color: var(--accent);
+            letter-spacing: 1px;
+            border: 1px dashed var(--border);
+            padding: 6px 18px;
+            background: var(--bg-color);
+        }
+        .step-index {
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: var(--accent);
+            text-transform: uppercase;
+            padding-left: 3px;
+        }
+        .craft-text h3 {
+            font-size: 19px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin: 6px 0 14px;
+        }
+        .craft-text p {
+            font-size: 13.5px;
+            color: var(--text-sub);
+            line-height: 1.9;
+        }
+
+        .cta-wrap {
+            max-width: 1100px;
+            margin: 0 auto 100px;
+            padding: 0 20px;
+            text-align: center;
+        }
+        .cta-btn {
+            display: inline-block;
+            text-align: center;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 12px 42px;
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+        .cta-btn:hover {
+            background-color: var(--accent);
+            color: #FFF;
+        }
+
         @media (max-width: 768px) {
-            .contact-layout { grid-template-columns: 1fr; }
+            .craft-step, .craft-step:nth-child(even) {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .craft-step:nth-child(even) .craft-photo {
+                order: 0;
+            }
             header {
                 grid-template-columns: 1fr;
                 gap: 15px;
@@ -140,103 +245,6 @@
             }
         }
 
-        .contact-info-box {
-            background: #FFFFFF;
-            border: 1px solid var(--border);
-            padding: 40px;
-        }
-        .contact-info-box h2 {
-            font-size: 20px;
-            font-weight: 500;
-            margin-bottom: 25px;
-            letter-spacing: 1px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 15px;
-        }
-        .info-row {
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-        .info-label {
-            font-weight: bold;
-            color: var(--accent);
-            display: block;
-            font-size: 11px;
-            text-transform: uppercase;
-            margin-bottom: 3px;
-            letter-spacing: 1px;
-        }
-
-        .line-action-btn {
-            display: inline-block;
-            background-color: #06C755;
-            color: #FFFFFF;
-            text-decoration: none;
-            padding: 10px 20px;
-            font-size: 13.5px;
-            font-weight: 500;
-            border-radius: 4px;
-            margin-top: 10px;
-            text-align: center;
-            width: calc(100% - 40px);
-            transition: opacity 0.3s;
-        }
-        .line-action-btn:hover {
-            opacity: 0.9;
-        }
-
-        .rfq-box {
-            background: #FFFFFF;
-            border: 1px solid var(--border);
-            padding: 35px 30px;
-        }
-        .rfq-box h3 {
-            font-size: 18px;
-            font-weight: 500;
-            margin: 0 0 10px;
-            letter-spacing: 1px;
-        }
-        .rfq-box p {
-            font-size: 12.5px;
-            color: var(--text-sub);
-            margin-bottom: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            font-size: 12px;
-            margin-bottom: 5px;
-            color: var(--text-main);
-            font-weight: 500;
-        }
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 8px 10px;
-            border: 1px solid var(--border);
-            background: var(--bg-color);
-            font-size: 13px;
-            box-sizing: border-box;
-            font-family: inherit;
-        }
-        .submit-btn {
-            width: 100%;
-            background: var(--accent);
-            color: #FFF;
-            border: none;
-            padding: 12px;
-            font-size: 13px;
-            letter-spacing: 1.5px;
-            cursor: pointer;
-            text-transform: uppercase;
-            margin-top: 10px;
-            transition: background 0.3s;
-        }
-        .submit-btn:hover {
-            background: #7A6E5E;
-        }
-
         footer {
             background-color: #FFFFFF;
             border-top: 1px solid var(--border);
@@ -244,76 +252,6 @@
             text-align: center;
             font-size: 12px;
             color: var(--text-sub);
-        }
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        .social-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 5px 14px;
-            font-size: 11px;
-            letter-spacing: 1px;
-            text-decoration: none;
-            color: var(--text-main);
-            border: 1px solid var(--border);
-            background-color: var(--bg-color);
-            border-radius: 20px;
-            transition: all 0.3s;
-        }
-        .social-btn:hover {
-            border-color: var(--accent);
-            color: #FFF;
-            background-color: var(--accent);
-        }
-
-        .qr-section {
-            margin-top: 40px;
-            text-align: center;
-        }
-        .qr-section h2 {
-            font-size: 20px;
-            color: var(--text-main);
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-        }
-        .qr-card {
-            background-color: #FFFFFF;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 24px;
-            max-width: 320px;
-            margin: 0 auto;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-        }
-        .qr-card img {
-            width: 100%;
-            max-width: 236px;
-            height: auto;
-            border-radius: 8px;
-            display: block;
-            margin: 0 auto;
-        }
-        .qr-card h4 {
-            font-size: 15px;
-            color: var(--text-main);
-            margin: 14px 0 6px;
-        }
-        .qr-card p {
-            font-size: 12.5px;
-            color: var(--text-sub);
-        }
-        .qr-cards {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-        @media (min-width: 700px) {
-            .qr-cards { flex-direction: row; justify-content: center; }
         }
     </style>
 </head>
@@ -331,7 +269,7 @@
             <nav>
                 <a href="index.html" data-i18n="navHome">首頁</a>
                 <a href="products.html" data-i18n="navProducts">產品型錄</a>
-                <a href="contact.html" class="active" data-i18n="navContact">聯絡我們</a>
+                <a href="contact.html" data-i18n="navContact">聯絡我們</a>
             </nav>
             <div class="lang-switch">
                 <button class="lang-btn active" onclick="switchLang('zh', this)">繁中</button>
@@ -341,224 +279,182 @@
         </div>
     </header>
 
-    <div class="contact-layout">
-        <!-- 左欄：聯繫資訊與打樣承諾 -->
-        <div class="contact-info-box">
-            <h2 id="page-title" data-i18n="title">合作開發諮詢與商務對話</h2>
-
-            <div class="info-row">
-                <span class="info-label" id="lbl-sampling" data-i18n="sampling">打樣時程承諾</span>
-                <span data-i18n="samplingDetail">14 個工作天自主打樣開發</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label" id="lbl-email" data-i18n="emailLabel">電子郵件</span>
-                <a href="mailto:gu.shenghat@gmail.com" style="color: var(--text-main);">gu.shenghat@gmail.com</a>
-            </div>
-            <div class="info-row">
-                <span class="info-label" id="lbl-phone" data-i18n="phone">公司電話</span>
-                <span>(02) 2989-2247</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label" id="lbl-addr" data-i18n="addr">台北總部研發中心</span>
-                <span data-i18n="addrDetail">台灣新北市三重區</span>
-            </div>
-
-        </div>
-
-        <!-- 右欄：買方 RFQ 登記表單 -->
-        <div class="rfq-box">
-            <h3 id="form-title" data-i18n="formTitle">啟動開發或索取資料</h3>
-            <p id="form-sub" data-i18n="formSub">我們將在 24 小時內指派對應技術專員回覆</p>
-            <form action="https://formsubmit.co/gu.shenghat@gmail.com" method="POST" accept-charset="UTF-8">
-                <input type="hidden" name="_subject" id="f-subject" value="GU. SHENG 官網新詢價 — 請盡速跟進">
-                <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_honey" style="display:none">
-                <input type="hidden" name="_next" value="https://www.headwearmakergusheng.com/contact.html?sent=1">
-                <div class="form-group">
-                    <label id="f-role" data-i18n="fRole">您的角色</label>
-                    <select name="role">
-                        <option value="Merchandiser" data-i18n="oRole1">商品企劃</option>
-                        <option value="Designer" data-i18n="oRole2">服裝設計</option>
-                        <option value="Sourcing" data-i18n="oRole3">採購主管</option>
-                        <option value="Other" data-i18n="oRole4">其他商務夥伴</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label id="f-intent" data-i18n="fIntent">核心需求</label>
-                    <select name="intent" id="intent-select">
-                        <option value="LineSheet" data-i18n="oIntent1">索取產品型錄與規格書</option>
-                        <option value="RFQChecklist" data-i18n="oIntent2">索取詢價檢查表</option>
-                        <option value="TechPack" data-i18n="oIntent3">提交設計方向與打樣（14 個工作天）</option>
-                        <option value="CarePack" data-i18n="oIntent4">索取帽款保養資訊</option>
-                        <option value="SampleCall" data-i18n="oIntent5">預約 20 分鐘開發諮詢視訊</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label id="f-contact" data-i18n="fContact">公司名稱與電子郵件</label>
-                    <input type="text" name="company_email" required placeholder="例如：品牌名稱、buyer@company.com" data-i18n-ph="phEmail">
-                </div>
-                <div class="form-group">
-                    <label id="f-notes" data-i18n="fNotes">帽型細節或目標市場</label>
-                    <textarea name="notes" id="notes-textarea" rows="3" placeholder="請填寫目標帽款或目標上市季節" data-i18n-ph="phNotes"></textarea>
-                </div>
-                <button type="submit" class="submit-btn" id="f-submit" data-i18n="fSubmit">送出開發需求</button>
-            </form>
-        </div>
+    <div class="section-header">
+        <h1 id="page-title" data-i18n="pageTitle">工法與細節</h1>
+        <p id="page-subtitle" data-i18n="pageSub">五大核心步驟，把設計輪廓做成結構化、可量產的帽款</p>
     </div>
 
-    <section class="qr-section">
-        <h2 data-i18n="qrTitle">即時聯繫 QR Code</h2>
-        <div class="qr-cards">
-            <div class="qr-card">
-                <img src="whatsapp-qr.png" alt="WhatsApp QR Code">
-                <h4>WhatsApp</h4>
-                <p data-i18n="qrWa">掃描 QR 加入 WhatsApp</p>
+    <section class="craft-list">
+        <!-- 步驟 1 -->
+        <div class="craft-step">
+            <div class="craft-photo">
+                <img src="craft1.jpg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="photo-placeholder">
+                    <span class="ph-file">craft1.jpg</span>
+                    <span data-i18n="s1Ph">此處放置：紗線選配的照片</span>
+                </div>
             </div>
-            <div class="qr-card">
-                <img src="wechat-qr.png" alt="WeChat QR Code">
-                <h4>WeChat 微信</h4>
-                <p data-i18n="qrWe">掃描 QR 加入微信</p>
+            <div class="craft-text">
+                <div class="step-index" data-i18n="stepLabel">步驟 01</div>
+                <h3 data-i18n="s1Title">紗線選配</h3>
+                <p data-i18n="s1Desc">依帽款的季節線與手感需求，選配天然亞麻、精梳棉、澳洲羊毛或機能彈性混紡等特種紗線，從源頭決定帽子的性格與舒適度。</p>
             </div>
-            <div class="qr-card">
-                <img src="line-qr.png" alt="LINE QR Code">
-                <h4>LINE</h4>
-                <p data-i18n="qrLine">掃描 QR 加入 LINE</p>
+        </div>
+
+        <!-- 步驟 2 -->
+        <div class="craft-step">
+            <div class="craft-photo">
+                <img src="craft2.jpg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="photo-placeholder">
+                    <span class="ph-file">craft2.jpg</span>
+                    <span data-i18n="s2Ph">此處放置：一體成型針織的照片</span>
+                </div>
+            </div>
+            <div class="craft-text">
+                <div class="step-index" data-i18n="stepLabel">步驟 02</div>
+                <h3 data-i18n="s2Title">一體成型針織</h3>
+                <p data-i18n="s2Desc">帽冠一次織造成型，告別傳統裁片接縫。無縫結構讓帽體服貼頭型、透氣度高，也減少織造過程的耗損與重工。</p>
+            </div>
+        </div>
+
+        <!-- 步驟 3 -->
+        <div class="craft-step">
+            <div class="craft-photo">
+                <img src="craft3.jpg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="photo-placeholder">
+                    <span class="ph-file">craft3.jpg</span>
+                    <span data-i18n="s3Ph">此處放置：縫邊與細節加工的照片</span>
+                </div>
+            </div>
+            <div class="craft-text">
+                <div class="step-index" data-i18n="stepLabel">步驟 03</div>
+                <h3 data-i18n="s3Title">縫邊與細節加工</h3>
+                <p data-i18n="s3Desc">仿皮滾邊強化帽簷挺拔度與耐磨性，異材質手工車縫處理邊緣細節，讓每一頂帽子在近看時依然經得起檢驗。</p>
+            </div>
+        </div>
+
+        <!-- 步驟 4 -->
+        <div class="craft-step">
+            <div class="craft-photo">
+                <img src="craft4.jpg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="photo-placeholder">
+                    <span class="ph-file">craft4.jpg</span>
+                    <span data-i18n="s4Ph">此處放置：熱定型塑形的照片</span>
+                </div>
+            </div>
+            <div class="craft-text">
+                <div class="step-index" data-i18n="stepLabel">步驟 04</div>
+                <h3 data-i18n="s4Title">熱定型塑形</h3>
+                <p data-i18n="s4Desc">招牌熱定型加工為帽體建立形狀記憶：水滴折痕、微澎弧度、彎弧帽簷都能長久維持立體輪廓，抗壓不易變形。</p>
+            </div>
+        </div>
+
+        <!-- 步驟 5 -->
+        <div class="craft-step">
+            <div class="craft-photo">
+                <img src="craft5.jpg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="photo-placeholder">
+                    <span class="ph-file">craft5.jpg</span>
+                    <span data-i18n="s5Ph">此處放置：檢驗與包裝的照片</span>
+                </div>
+            </div>
+            <div class="craft-text">
+                <div class="step-index" data-i18n="stepLabel">步驟 05</div>
+                <h3 data-i18n="s5Title">檢驗與包裝</h3>
+                <p data-i18n="s5Desc">逐批檢查針距、弧度與細節加工，確認洗標與安全規範後完成包裝出貨，交付可直接陳列銷售的成品品質。</p>
             </div>
         </div>
     </section>
+
+    <div class="cta-wrap">
+        <a href="contact.html?intent=TechPack" class="cta-btn" data-i18n="cta">提交設計方向</a>
+    </div>
 
     <footer>
         <p data-i18n="footCopy">© 2026 盛全工業股份有限公司 版權所有</p>
     </footer>
 
     <script>
-        let sentFlag = false;
-        const sentMsg = {
-            zh: '✓ 已收到您的需求，我們將在 24 小時內回覆。',
-            en: '✓ Your request has been received. We will reply within 24 hours.',
-            jp: '✓ お問い合わせを受け付けました。24時間以内に回答いたします。'
-        };
-
-        window.addEventListener('DOMContentLoaded', () => {
-            const params = new URLSearchParams(window.location.search);
-            const intent = params.get('intent');
-            styleVal = params.get('style');
-            if (intent) {
-                const select = document.getElementById('intent-select');
-                if (select) select.value = intent;
-            }
-            if (styleVal) {
-                fillNotes('zh');
-            }
-            const notes = document.getElementById('notes-textarea');
-            if (notes) notes.addEventListener('input', () => {
-                userEditedNotes = notes.value !== autoNote;
-            });
-            if (params.get('sent') === '1') {
-                sentFlag = true;
-                const el = document.getElementById('form-sub');
-                if (el) el.innerText = sentMsg.zh;
-            }
-            const form = document.querySelector('.rfq-box form');
-            if (form && document.getElementById('f-subject')) {
-                form.addEventListener('submit', () => {
-                    const role = form.querySelector('select[name=role]');
-                    const intent = form.querySelector('select[name=intent]');
-                    const subj = document.getElementById('f-subject');
-                    if (role && intent && subj) {
-                        subj.value = 'GU. SHENG 官網詢價｜' + (intent.selectedOptions[0] ? intent.selectedOptions[0].innerText : '') + '｜' + role.value;
-                    }
-                });
-            }
-        });
-
-        let currentLang = 'zh';
-        let styleVal = null;
-        let autoNote = '';
-        let userEditedNotes = false;
-
-        const noteMsg = {
-            zh: s => `洽詢特定帽款：${s}，請提供該款式的產品型錄與規格細節。`,
-            en: s => `Enquiry for ${s}: please provide the full product catalog and specification details.`,
-            jp: s => `ご検討帽型：${s} について、製品ラインシートと仕様の詳細をご提供ください。`
-        };
-
-        function fillNotes(lang) {
-            const notes = document.getElementById('notes-textarea');
-            if (!notes) return;
-            autoNote = styleVal ? noteMsg[lang](styleVal) : '';
-            if (styleVal) notes.value = autoNote;
-        }
-
         const translations = {
             zh: {
-                docTitle: "聯絡與詢價 - GU. SHENG 盛全工業",
+                docTitle: "工法與細節 - GU. SHENG 盛全工業",
                 navHome: "首頁", navProducts: "產品型錄", navContact: "聯絡我們",
                 brandMain: "盛全工業股份有限公司",
                 sub: "GU. SHENG",
-                title: "合作開發諮詢與商務對話", sampling: "打樣時程承諾", samplingDetail: "14 個工作天自主打樣開發", emailLabel: "電子郵件", phone: "公司電話", addr: "台北總部研發中心", addrDetail: "台灣新北市三重區", qrTitle: "即時聯繫 QR Code", qrWa: "掃描 QR 加入 WhatsApp 對話", qrWe: "掃描 QR 加入微信對話", qrLine: "掃描 QR 加入 LINE",
-                formTitle: "啟動開發或索取資料", formSub: "我們將在 24 小時內指派對應技術專員回覆",
-                oRole1: "商品企劃", oRole2: "服裝設計", oRole3: "採購主管", oRole4: "其他商務夥伴",
-                oIntent1: "索取產品型錄與規格書", oIntent2: "索取詢價檢查表", oIntent3: "提交設計方向與打樣（14 個工作天）", oIntent4: "索取帽款保養資訊", oIntent5: "預約 20 分鐘開發諮詢視訊",
-                fRole: "您的角色", fIntent: "核心需求", fContact: "公司名稱與電子郵件", fNotes: "帽型細節或目標市場", fSubmit: "送出開發需求",
-                phEmail: "例如：品牌名稱、buyer@company.com", phNotes: "請填寫目標帽款或目標上市季節",
+                pageTitle: "工法與細節",
+                pageSub: "五大核心步驟，把設計輪廓做成結構化、可量產的帽款",
+                stepLabel: "步驟 0",
+                s1Ph: "此處放置：紗線選配的照片", s1Title: "紗線選配",
+                s1Desc: "依帽款的季節線與手感需求，選配天然亞麻、精梳棉、澳洲羊毛或機能彈性混紡等特種紗線，從源頭決定帽子的性格與舒適度。",
+                s2Ph: "此處放置：一體成型針織的照片", s2Title: "一體成型針織",
+                s2Desc: "帽冠一次織造成型，告別傳統裁片接縫。無縫結構讓帽體服貼頭型、透氣度高，也減少織造過程的耗損與重工。",
+                s3Ph: "此處放置：縫邊與細節加工的照片", s3Title: "縫邊與細節加工",
+                s3Desc: "仿皮滾邊強化帽簷挺拔度與耐磨性，異材質手工車縫處理邊緣細節，讓每一頂帽子在近看時依然經得起檢驗。",
+                s4Ph: "此處放置：熱定型塑形的照片", s4Title: "熱定型塑形",
+                s4Desc: "招牌熱定型加工為帽體建立形狀記憶：水滴折痕、微澎弧度、彎弧帽簷都能長久維持立體輪廓，抗壓不易變形。",
+                s5Ph: "此處放置：檢驗與包裝的照片", s5Title: "檢驗與包裝",
+                s5Desc: "逐批檢查針距、弧度與細節加工，確認洗標與安全規範後完成包裝出貨，交付可直接陳列銷售的成品品質。",
+                cta: "提交設計方向",
                 footCopy: "© 2026 盛全工業股份有限公司 版權所有"
             },
             en: {
-                docTitle: "Inquiries - GU. SHENG",
+                docTitle: "Craft & Details - GU. SHENG",
                 navHome: "HOME", navProducts: "PRODUCTS", navContact: "CONTACT",
                 brandMain: "GU. SHENG INDUSTRIAL CO., LTD.",
                 sub: "FASHION HEADWEAR DEVELOPMENT PARTNER",
-                title: "Development Consultation & Business Contact", sampling: "Sampling Schedule", samplingDetail: "In-house sampling within 14 working days.", emailLabel: "EMAIL ADDRESS", phone: "TELEPHONE", addr: "TAIPEI HQ R&D CENTER", addrDetail: "Sanchong Dist., New Taipei City, Taiwan",
-                qrTitle: "Instant Messaging — QR Codes", qrWa: "Scan to start a WhatsApp conversation", qrWe: "Scan to add us on WeChat", qrLine: "Scan to add us on LINE",
-                formTitle: "Start a Brief or Request a Pack", formSub: "Our technical team will respond within 24 hours.",
-                oRole1: "Merchandiser", oRole2: "Creative Lead", oRole3: "Sourcing Manager", oRole4: "Other Partner",
-                oIntent1: "Request line sheet & specifications", oIntent2: "Request RFQ checklist", oIntent3: "Submit design brief & sampling (14 days)", oIntent4: "Request hat care information", oIntent5: "Book a 20-min development video call",
-                fRole: "Your Role", fIntent: "Primary Action", fContact: "Company Name & Email", fNotes: "Project Details or Target Season", fSubmit: "SUBMIT REQUEST",
-                phEmail: "e.g. Brand Name, buyer@company.com", phNotes: "Target hat style or launch season",
+                pageTitle: "CRAFT & DETAILS",
+                pageSub: "Five core steps that turn design concepts into structured, production-ready hats",
+                stepLabel: "STEP 0",
+                s1Ph: "Photo goes here: yarn selection", s1Title: "Yarn Selection",
+                s1Desc: "Depending on the seasonal line and hand-feel of each hat, we select specialty yarns — natural linen, combed cotton, Australian wool or functional stretch blends — defining the character and comfort from the very source.",
+                s2Ph: "Photo goes here: one-piece seamless knitting", s2Title: "One-Piece Seamless Knit",
+                s2Desc: "The crown is knitted in a single piece, leaving traditional cut-and-sew panels behind. The seamless structure fits the head closely, breathes well, and reduces waste and rework.",
+                s3Ph: "Photo goes here: binding & detail finishing", s3Title: "Binding & Detail Finishing",
+                s3Desc: "Faux-leather binding reinforces brim structure and abrasion resistance, while mixed-material hand stitching finishes the edges so every hat stands up to close inspection.",
+                s4Ph: "Photo goes here: thermo-blocking", s4Title: "Thermo-Blocking",
+                s4Desc: "Our signature thermo-blocking builds shape memory into the hat: teardrop pinches, soft curves and bent visors keep their sculpted profile long-term, resisting crushing and deformation.",
+                s5Ph: "Photo goes here: inspection & packing", s5Title: "Inspection & Packing",
+                s5Desc: "Every batch is checked for stitch spacing, curves and finish details, with care labels and safety compliance confirmed before packing — retail-ready quality on arrival.",
+                cta: "Submit Design Direction",
                 footCopy: "© 2026 GU. SHENG Industrial Co., Ltd. All rights reserved."
             },
             jp: {
-                docTitle: "お問い合わせ - GU. SHENG 盛全工業",
+                docTitle: "工法とディテール - GU. SHENG",
                 navHome: "ホーム", navProducts: "製品紹介", navContact: "お問い合わせ",
                 brandMain: "盛全工業株式会社",
                 sub: "ファッション帽子開発パートナー",
-                title: "開発相談・商談窓口", sampling: "サンプル納期コミットメント", samplingDetail: "自社サンプル開発14営業日以内", emailLabel: "メールアドレス", phone: "電話番号", addr: "台北本社 研究開発センター", addrDetail: "台湾新北市三重区",
-                qrTitle: "QRコードで即時連絡", qrWa: "スキャンしてWhatsAppでどうぞ", qrWe: "スキャンしてWeChat（微信）でどうぞ", qrLine: "スキャンしてLINEで友達追加",
-                formTitle: "開発相談・資料請求フォーム", formSub: "24時間以内に専門スタッフが回答します。",
-                oRole1: "商品企画", oRole2: "デザイナー", oRole3: "調達責任者", oRole4: "その他のパートナー",
-                oIntent1: "ラインシートと仕様書の請求", oIntent2: "見積チェックリストの請求", oIntent3: "デザイン提出とサンプル開発（14日）", oIntent4: "帽子のお手入れ情報を請求", oIntent5: "20分の開発相談ビデオを予約",
-                fRole: "ご担当役割", fIntent: "ご希望内容", fContact: "貴社名・メールアドレス", fNotes: "ご検討帽型やターゲット市場", fSubmit: "開発リクエストを送信",
-                phEmail: "例：ブランド名、buyer@company.com", phNotes: "ご希望の帽型や販売シーズンをご記入ください",
+                pageTitle: "工法とディテール",
+                pageSub: "5つの核心ステップで、デザインの輪郭を量産可能な帽型へ",
+                stepLabel: "ステップ 0",
+                s1Ph: "写真をここに：糸選定の様子", s1Title: "糸選定",
+                s1Desc: "帽型のシーズンラインや風合いの要件に応じて、天然リネン、コーマ綿、オーストラリアウール、機能性ストレッチ混紡などの特殊糸を選定。素材の段階から帽子の性格と快適さを決めます。",
+                s2Ph: "写真をここに：一体成型ニットの様子", s2Title: "一体成型ニット",
+                s2Desc: "クラウンを一度に編み上げ、従来の裁断面の縫い合わせを排します。無縫構造で頭型に密着し、通気性に優れ、編み過程のロスや手戻りも減らします。",
+                s3Ph: "写真をここに：縁取りとディテール加工の様子", s3Title: "縁取りとディテール加工",
+                s3Desc: "フェイクレザーの縁取りがつばのハリと耐摩耗性を高め、異素材のハンドステッチでエッジを仕上げます。近づいて見ても手を抜かない品質です。",
+                s4Ph: "写真をここに：熱定型の様子", s4Title: "熱定型",
+                s4Desc: "独自の熱定型加工が帽体に型の記憶を与えます。雨滴型の凹折も、ふっくらしたカーブも、反ったつばも、立体的なシルエットを長く保ち、潰れにくい作りです。",
+                s5Ph: "写真をここに：検品と梱包の様子", s5Title: "検品と梱包",
+                s5Desc: "各ロットごとに目飛び・カーブ・加工ディテールをチェックし、洗濯表示と安全規格を確認して梱包・出荷。店頭にそのまま並べられる完成品をお届けします。",
+                cta: "デザインの方向性を提出",
                 footCopy: "© 2026 盛全工業股份有限公司"
             }
         };
 
         function switchLang(lang, btn) {
-            currentLang = lang;
             const dict = translations[lang];
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
+                if (key === 'stepLabel') return; /* 步驟編號由下方迴圈統一處理 */
                 if (dict[key] !== undefined) el.innerText = dict[key];
             });
-            document.querySelectorAll('[data-i18n-ph]').forEach(el => {
-                const key = el.getAttribute('data-i18n-ph');
-                if (dict[key] !== undefined) el.placeholder = dict[key];
+            document.querySelectorAll('.step-index').forEach((el, i) => {
+                el.innerText = dict.stepLabel + (i + 1);
             });
-            if (autoNote && !userEditedNotes) {
-                const notes = document.getElementById('notes-textarea');
-                if (notes) notes.value = noteMsg[lang](styleVal);
-                autoNote = notes ? notes.value : '';
-            }
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             document.documentElement.lang = lang === 'zh' ? 'zh-TW' : (lang === 'jp' ? 'ja' : 'en');
             document.title = dict.docTitle;
-            if (sentFlag) {
-                const el = document.getElementById('form-sub');
-                if (el) el.innerText = sentMsg[lang];
-            }
         }
     </script>
 </body>
