@@ -295,7 +295,7 @@
 
             <div class="info-row">
                 <span class="info-label" id="lbl-sampling" data-i18n="sampling">打樣時程承諾</span>
-                <span>14 個工作天自主打樣開發</span>
+                <span data-i18n="samplingDetail">14 個工作天自主打樣開發</span>
             </div>
             <div class="info-row">
                 <span class="info-label" id="lbl-email" data-i18n="emailLabel">電子郵件</span>
@@ -307,7 +307,7 @@
             </div>
             <div class="info-row">
                 <span class="info-label" id="lbl-addr" data-i18n="addr">台北總部研發中心</span>
-                <span>台灣新北市三重區</span>
+                <span data-i18n="addrDetail">台灣新北市三重區</span>
             </div>
 
             <div style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 20px;">
@@ -322,7 +322,12 @@
         <div class="rfq-box">
             <h3 id="form-title" data-i18n="formTitle">啟動開發或索取資料</h3>
             <p id="form-sub" data-i18n="formSub">我們將在 24 小時內指派對應技術專員回覆</p>
-            <form action="mailto:gu.shenghat@gmail.com" method="post" enctype="text/plain">
+            <form action="https://formsubmit.co/gu.shenghat@gmail.com" method="POST" accept-charset="UTF-8">
+                <input type="hidden" name="_subject" id="f-subject" value="GU. SHENG 官網新詢價 — 請盡速跟進">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_honey" style="display:none">
+                <input type="hidden" name="_next" value="https://www.headwearmakergusheng.com/contact.html?sent=1">
                 <div class="form-group">
                     <label id="f-role" data-i18n="fRole">您的角色</label>
                     <select name="role">
@@ -360,6 +365,13 @@
     </footer>
 
     <script>
+        let sentFlag = false;
+        const sentMsg = {
+            zh: '✓ 已收到您的需求，我們將在 24 小時內回覆。',
+            en: '✓ Your request has been received. We will reply within 24 hours.',
+            jp: '✓ お問い合わせを受け付けました。24時間以内に回答いたします。'
+        };
+
         window.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
             const intent = params.get('intent');
@@ -375,6 +387,22 @@
             if (notes) notes.addEventListener('input', () => {
                 userEditedNotes = notes.value !== autoNote;
             });
+            if (params.get('sent') === '1') {
+                sentFlag = true;
+                const el = document.getElementById('form-sub');
+                if (el) el.innerText = sentMsg.zh;
+            }
+            const form = document.querySelector('.rfq-box form');
+            if (form && document.getElementById('f-subject')) {
+                form.addEventListener('submit', () => {
+                    const role = form.querySelector('select[name=role]');
+                    const intent = form.querySelector('select[name=intent]');
+                    const subj = document.getElementById('f-subject');
+                    if (role && intent && subj) {
+                        subj.value = 'GU. SHENG 官網詢價｜' + (intent.selectedOptions[0] ? intent.selectedOptions[0].innerText : '') + '｜' + role.value;
+                    }
+                });
+            }
         });
 
         let currentLang = 'zh';
@@ -400,7 +428,7 @@
                 docTitle: "聯絡與詢價 - GU. SHENG 盛全工業",
                 navHome: "首頁", navProducts: "產品型錄", navContact: "聯絡我們",
                 sub: "盛全工業股份有限公司",
-                title: "合作開發諮詢與商務對話", sampling: "打樣時程承諾", emailLabel: "電子郵件", phone: "公司電話", addr: "台北總部研發中心", line: "即時溝通窗口", linebtn: "點擊加入公司官方 LINE 帳號",
+                title: "合作開發諮詢與商務對話", sampling: "打樣時程承諾", samplingDetail: "14 個工作天自主打樣開發", emailLabel: "電子郵件", phone: "公司電話", addr: "台北總部研發中心", addrDetail: "台灣新北市三重區", line: "即時溝通窗口", linebtn: "點擊加入公司官方 LINE 帳號",
                 formTitle: "啟動開發或索取資料", formSub: "我們將在 24 小時內指派對應技術專員回覆",
                 oRole1: "商品企劃", oRole2: "服裝設計", oRole3: "採購主管", oRole4: "其他商務夥伴",
                 oIntent1: "索取產品型錄與規格書", oIntent2: "索取詢價檢查表", oIntent3: "提交設計方向與打樣（14 個工作天）", oIntent4: "索取帽款保養資訊", oIntent5: "預約 20 分鐘開發諮詢視訊",
@@ -412,7 +440,7 @@
                 docTitle: "Inquiries - GU. SHENG",
                 navHome: "HOME", navProducts: "PRODUCTS", navContact: "CONTACT",
                 sub: "FASHION HEADWEAR DEVELOPMENT PARTNER",
-                title: "Development Consultation & Business Contact", sampling: "Sampling Schedule", emailLabel: "EMAIL ADDRESS", phone: "TELEPHONE", addr: "TAIPEI HQ R&D CENTER", line: "INSTANT CHAT", linebtn: "Click to Connect via LINE",
+                title: "Development Consultation & Business Contact", sampling: "Sampling Schedule", samplingDetail: "In-house sampling within 14 working days.", emailLabel: "EMAIL ADDRESS", phone: "TELEPHONE", addr: "TAIPEI HQ R&D CENTER", addrDetail: "Sanchong Dist., New Taipei City, Taiwan", line: "INSTANT CHAT", linebtn: "Click to Connect via LINE",
                 formTitle: "Start a Brief or Request a Pack", formSub: "Our technical team will respond within 24 hours.",
                 oRole1: "Merchandiser", oRole2: "Creative Lead", oRole3: "Sourcing Manager", oRole4: "Other Partner",
                 oIntent1: "Request line sheet & specifications", oIntent2: "Request RFQ checklist", oIntent3: "Submit design brief & sampling (14 days)", oIntent4: "Request hat care information", oIntent5: "Book a 20-min development video call",
@@ -424,7 +452,7 @@
                 docTitle: "お問い合わせ - GU. SHENG 盛全工業",
                 navHome: "ホーム", navProducts: "製品紹介", navContact: "お問い合わせ",
                 sub: "ファッション帽子開発パートナー",
-                title: "開発相談・商談窓口", sampling: "サンプル納期コミットメント", emailLabel: "メールアドレス", phone: "電話番号", addr: "台北本社 研究開発センター", line: "チャット相談", linebtn: "クリックしてLINEで友達追加",
+                title: "開発相談・商談窓口", sampling: "サンプル納期コミットメント", samplingDetail: "自社サンプル開発14営業日以内", emailLabel: "メールアドレス", phone: "電話番号", addr: "台北本社 研究開発センター", addrDetail: "台湾新北市三重区", line: "チャット相談", linebtn: "クリックしてLINEで友達追加",
                 formTitle: "開発相談・資料請求フォーム", formSub: "24時間以内に専門スタッフが回答します。",
                 oRole1: "商品企画", oRole2: "デザイナー", oRole3: "調達責任者", oRole4: "その他のパートナー",
                 oIntent1: "ラインシートと仕様書の請求", oIntent2: "見積チェックリストの請求", oIntent3: "デザイン提出とサンプル開発（14日）", oIntent4: "帽子のお手入れ情報を請求", oIntent5: "20分の開発相談ビデオを予約",
@@ -454,6 +482,10 @@
             btn.classList.add('active');
             document.documentElement.lang = lang === 'zh' ? 'zh-TW' : (lang === 'jp' ? 'ja' : 'en');
             document.title = dict.docTitle;
+            if (sentFlag) {
+                const el = document.getElementById('form-sub');
+                if (el) el.innerText = sentMsg[lang];
+            }
         }
     </script>
 </body>
