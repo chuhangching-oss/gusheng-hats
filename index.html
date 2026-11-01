@@ -20,7 +20,7 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            font-family: "Helvetica Neue", Arial, "Noto Sans TC", "Hiragino Kaku Gothic ProN", sans-serif;
+            font-family: Arial, "Microsoft JhengHei", "微軟正黑體", "Noto Sans TC", "Meiryo", sans-serif;
             line-height: 1.8;
             margin: 0;
             padding: 0;
@@ -39,16 +39,24 @@
         }
 
         .logo {
-            font-size: 20px;
-            font-weight: 500;
-            letter-spacing: 2px;
+            text-decoration: none;
+            color: inherit;
+            display: block;
             line-height: 1.2;
         }
-        .logo span {
+        .brand-main {
+            font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+            font-weight: 700;
+            font-size: 17px;
+            letter-spacing: 1px;
+            display: block;
+        }
+        .brand-sub {
+            font-family: Arial, sans-serif;
             font-size: 11px;
             color: var(--text-sub);
             display: block;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             margin-top: 4px;
         }
 
@@ -285,11 +293,11 @@
 <body>
 
     <header>
-        <!-- 左側：公司品牌字樣 -->
-        <div class="logo">
-            GU. SHENG
-            <span id="company-sub" data-i18n="sub">盛全工業股份有限公司</span>
-        </div>
+        <!-- 左側：公司品牌字樣（點擊回首頁） -->
+        <a class="logo" href="index.html">
+            <span class="brand-main" data-i18n="brandMain">盛全工業股份有限公司</span>
+            <span class="brand-sub" id="company-sub" data-i18n="sub">GU. SHENG</span>
+        </a>
 
         <!-- 🌟 中間最上面：Logo 上緣與兩側選單對齊，高度已放大 1.5 倍 -->
         <div class="header-center-logo">
@@ -361,7 +369,8 @@
             zh: {
                 docTitle: "GU. SHENG 盛全工業｜品牌帽款開發夥伴",
                 navHome: "首頁", navProducts: "產品型錄", navContact: "聯絡我們",
-                sub: "盛全工業股份有限公司",
+                brandMain: "盛全工業股份有限公司",
+                sub: "GU. SHENG",
                 tag: "品牌合作開發型錄與量產對策",
                 title: "將設計輪廓，轉化為可量產的規格語言",
                 desc: "盛全工業（GU. SHENG）創立於 1984 年台灣台北，我們超越傳統代工製造，定位為國際品牌的「時尚帽款開發夥伴」。我們專精於一體成型針織、特種紗線與獨家熱定型加工，協助設計師與採購主管在 14 個工作天內將系列概念，具體落實為符合國際標準的打樣與量產規格。深獲日本、德國、美國等高端時裝與生活風格品牌信賴。",
@@ -374,6 +383,7 @@
             en: {
                 docTitle: "GU. SHENG - Fashion Headwear Development Partner",
                 navHome: "HOME", navProducts: "PRODUCTS", navContact: "CONTACT",
+                brandMain: "GU. SHENG INDUSTRIAL CO., LTD.",
                 sub: "FASHION HEADWEAR DEVELOPMENT PARTNER",
                 tag: "Production-Ready Headwear Development",
                 title: "Turning Design Directions into Production-Ready Briefs",
@@ -387,6 +397,7 @@
             jp: {
                 docTitle: "GU. SHENG｜ファッション帽子開発パートナー",
                 navHome: "ホーム", navProducts: "製品紹介", navContact: "お問い合わせ",
+                brandMain: "盛全工業株式会社",
                 sub: "ファッション帽子開発パートナー",
                 tag: "ブランド向け仕様策定・量産開発",
                 title: "デザインの輪郭を、確かな量産仕様へ昇華させる",
